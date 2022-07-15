@@ -1,12 +1,10 @@
 <?php
 
-//ini_set('default_socket_timeout', 180);
-
 /*
 
 Sqraper
-Version: 2.1.12
-Last Updated: March 13, 2020
+Version: 3.0.0
+Last Updated: July 15, 2022
 Author: DevAnon from QAlerts.app
 Email: qalertsapp@gmail.com
 
@@ -38,8 +36,8 @@ config changes as the config file is re-read at the end of each loop.
 /* ============================= */
 
 $scriptTitle = "Sqraper";
-$scriptVersion = "2.1.12";
-$scriptUpdated = "Last Updated: March 13, 2020";
+$scriptVersion = "3.0.0";
+$scriptUpdated = "Last Updated: July 15, 2022";
 $scriptAuthor = "DevAnon from QAlerts.app";
 $scriptAuthorEmail = "qalertsapp@gmail.com";
 
