@@ -57,6 +57,7 @@ CONFIGURATION FILE: sqraper_config.json (needs to be in the same folder as sqrap
   "useLoki": true,  
   "useTor": false,
   "torKun": "http://www.jthnx5wyvjvzsxtu.onion",  
+  "scrapeHTML":true,
   "saveRemoteFilesToLocal": true,
   "readFromLocal8KunFiles": false,
   "sleepBetweenNewQPostChecks": 150,
@@ -144,6 +145,11 @@ bogusTrips:
     Default: "http://www.jthnx5wyvjvzsxtu.onion"
     Simply the fully qualified URL to 8kun over Tor with no trailing /.
 
+  scrapeHTML:
+      Type: Boolean
+      Default: false
+      Works with "sqraper_html.php. Rather than download JSON files from 8kun, this grabs the HTML files and parses them to JSON for use in the sqraper.
+  
   saveRemoteFilesToLocal:
     Type: Boolean
     Default: true
