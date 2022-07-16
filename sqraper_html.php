@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ERROR);
+
 /*
 
 Sqraper
@@ -35,7 +37,7 @@ config changes as the config file is re-read at the end of each loop.
 /* ======= Configuration ======= */
 /* ============================= */
 
-$scriptTitle = "Sqraper";
+$scriptTitle = "Sqraper_HTML";
 $scriptVersion = "3.0.0";
 $scriptUpdated = "Last Updated: July 15, 2022";
 $scriptAuthor = "DevAnon from QAlerts.app";
