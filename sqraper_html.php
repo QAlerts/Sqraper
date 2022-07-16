@@ -1253,6 +1253,9 @@ do {
 				foreach($jsonBoardCatalog as $pages) { // Loop through all of the pages in the catalog.
 
 					$page = $pages['page'];
+					if ($page == "") {
+						$page = 1;
+					}
 					
 					echo "--- " . $fgGreen . "PARSE:" . $colorEnd . " Page $page.\n";
 					
