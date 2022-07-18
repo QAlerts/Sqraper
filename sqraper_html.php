@@ -5,8 +5,8 @@ error_reporting(E_ERROR);
 /*
 
 Sqraper
-Version: 3.0.0
-Last Updated: July 15, 2022
+Version: 3.0.1
+Last Updated: July 17, 2022
 Author: DevAnon from QAlerts.app
 Email: qalertsapp@gmail.com
 
@@ -38,7 +38,7 @@ config changes as the config file is re-read at the end of each loop.
 /* ============================= */
 
 $scriptTitle = "Sqraper_HTML";
-$scriptVersion = "3.0.0";
+$scriptVersion = "3.0.1";
 $scriptUpdated = "Last Updated: July 15, 2022";
 $scriptAuthor = "DevAnon from QAlerts.app";
 $scriptAuthorEmail = "qalertsapp@gmail.com";
@@ -269,7 +269,8 @@ function getConfig() {
 			'bogusTrips' => [],
 			'boards' => ['projectdcomms','qresearch'],
 			'domain8Kun' => '8kun.top',
-			'domain8KunForLinks' => '8kun.net',            
+			'domain8KunMedia' => '128ducks.com',
+			'domain8KunForLinks' => '8kun.net',
             'scrapeHTML' => false,
 			'useLoki' => false,
 			'lokiKun' => 'http://pijdty5otm38tdex6kkh51dkbkegf31dqgryryz3s3tys8wdegxo.loki',
@@ -297,6 +298,7 @@ function getConfig() {
 		$GLOBALS['bogusTrips'] = $defaultConfig['bogusTrips'];
 		$GLOBALS['boards'] = $defaultConfig['boards'];
 		$GLOBALS['domain8Kun'] = $defaultConfig['domain8Kun'];
+		$GLOBALS['domain8KunMedia'] = $defaultConfig['domain8KunMedia'];
 		$GLOBALS['domain8KunForLinks'] = $defaultConfig['domain8KunForLinks'];
         $GLOBALS['scrapeHTML'] = $defaultConfig['scrapeHTML'];
 		$GLOBALS['lokiKun'] = $defaultConfig['lokiKun'];
@@ -342,6 +344,7 @@ function getConfig() {
 				$GLOBALS['bogusTrips'] = $currentConfigJSON['bogusTrips'];
 				$GLOBALS['boards'] = $currentConfigJSON['boards'];
 				$GLOBALS['domain8Kun'] = $currentConfigJSON['domain8Kun'];
+				$GLOBALS['domain8KunMedia'] = $currentConfigJSON['domain8KunMedia'];
 				$GLOBALS['domain8KunForLinks'] = $currentConfigJSON['domain8KunForLinks'];
                 $GLOBALS['scrapeHTML'] = $currentConfigJSON['scrapeHTML'];
 				$GLOBALS['lokiKun'] = $currentConfigJSON['lokiKun'];
@@ -515,15 +518,18 @@ function getMediaObject($inArray) {
 		
 		if (($GLOBALS['useLoki']) || ($GLOBALS['useTor'])) {			
 			if ($GLOBALS['useLoki']) {
-				$thisDownload = "http://media." . str_replace("http://", "", $GLOBALS['lokiKun']) . "/file_store/" . $inArray['tim'] . $inArray['ext'];
+				//$thisDownload = "http://media." . str_replace("http://", "", $GLOBALS['lokiKun']) . "/file_store/" . $inArray['tim'] . $inArray['ext'];
+				$thisDownload = "https://media." . $GLOBALS['domain8KunMedia'] . "/file_store/" . $inArray['tim'] . $inArray['ext'];
 				downloadMediaFile($thisDownload, $thisStorageFilename);				
 			}
 			if ($GLOBALS['useTor']) {
-				$thisDownload = "http://media." . str_replace("http://www.", "", $GLOBALS['torKun']) . "/file_store/" . $inArray['tim'] . $inArray['ext'];
+				//$thisDownload = "http://media." . str_replace("http://www.", "", $GLOBALS['torKun']) . "/file_store/" . $inArray['tim'] . $inArray['ext'];
+				$thisDownload = "https://media." . $GLOBALS['domain8KunMedia'] . "/file_store/" . $inArray['tim'] . $inArray['ext'];
 				downloadMediaFile($thisDownload, $thisStorageFilename);				
 			}			
 		} else {
-			$thisDownload = "https://media." . $GLOBALS['domain8Kun'] . "/file_store/" . $inArray['tim'] . $inArray['ext'];
+			//$thisDownload = "https://media." . $GLOBALS['domain8Kun'] . "/file_store/" . $inArray['tim'] . $inArray['ext'];
+			$thisDownload = "https://media." . $GLOBALS['domain8KunMedia'] . "/file_store/" . $inArray['tim'] . $inArray['ext'];
 			downloadMediaFile($thisDownload, $thisStorageFilename);
 		}	
 		
@@ -958,7 +964,8 @@ do {
     }
 
 	echo "   " . $fgBlue . "Internet Domain:" . $colorEnd . " $domain8Kun\n";
-	echo "   " . $fgBlue . "Internet Domain for Links in JSON:" . $colorEnd . " $domain8KunForLinks\n";
+	echo "   " . $fgBlue . "Internet Domain (media):" . $colorEnd . " $domain8KunMedia\n";
+	echo "   " . $fgBlue . "Internet Domain for Links in JSON:" . $colorEnd . " $domain8KunForLinks\n";	
     echo "   " . $fgBlue . "Scrape HTML Rather Than JSON:" . $colorEnd . " $scrapeHTML\n";
 	echo "   " . $fgBlue . "Use Tor Network:" . $colorEnd . " $useTor\n";
 	echo "   " . $fgBlue . "Tor Network Address:" . $colorEnd . " $torKun\n";
@@ -1255,7 +1262,7 @@ do {
 					$page = $pages['page'];
 					if ($page == "") {
 						$page = 1;
-					}
+					}					
 					
 					echo "--- " . $fgGreen . "PARSE:" . $colorEnd . " Page $page.\n";
 					
@@ -1981,7 +1988,7 @@ do {
 		}
 	}
 
-	echo "\n" . $fgGreen . "NEW Q DROPS:" . $colorEnd . " $newQSinceStart (since Sqraper v$scriptVersion started $sqraperStarted).\n";
+	echo "\n" . $fgGreen . "NEW Q DROPS:" . $colorEnd . " $newQSinceStart (since $scriptTitle v$scriptVersion started $sqraperStarted).\n";
 	$timeFinished  = strtotime(date('m/d/Y h:i:s a', time()));
 	$differenceInSeconds = $timeFinished - $timeStarted;
 	echo $fgGreen . "FINISHED:" . $colorEnd . " " . date("m/d/Y h:i:sa") . ". Took $differenceInSeconds second(s) to complete.\n";
