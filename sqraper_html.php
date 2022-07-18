@@ -5,7 +5,7 @@ error_reporting(E_ERROR);
 /*
 
 Sqraper
-Version: 3.0.1
+Version: 3.0.2
 Last Updated: July 17, 2022
 Author: DevAnon from QAlerts.app
 Email: qalertsapp@gmail.com
@@ -38,7 +38,7 @@ config changes as the config file is re-read at the end of each loop.
 /* ============================= */
 
 $scriptTitle = "Sqraper_HTML";
-$scriptVersion = "3.0.1";
+$scriptVersion = "3.0.2";
 $scriptUpdated = "Last Updated: July 15, 2022";
 $scriptAuthor = "DevAnon from QAlerts.app";
 $scriptAuthorEmail = "qalertsapp@gmail.com";
@@ -1337,6 +1337,8 @@ do {
 											
 										echo $fgGreen . "SAVING HTML TO JSON RESULTS: " . $colorEnd . $board . "/thread.json" . PHP_EOL;
 										file_put_contents($productionJSONFolder . $board . "/thread.json", json_encode(html_to_obj($threadContents)), LOCK_EX);
+										echo $fgGreen . "COPY: " . $colorEnd . $board . "/thread.json > " . $board . "/" . $threadPath_Parts['filename'] . ".html.json" . PHP_EOL;
+										copy($productionJSONFolder . $board . "/thread.json", $productionJSONFolder . $board . "/" . $threadPath_Parts['filename'] . ".html.json");
 									
 										echo $fgGreen . "READING: " . $colorEnd . $board . "/thread.json" . PHP_EOL;
 										$threadContents = @file_get_contents($productionJSONFolder . $board . "/thread.json");
@@ -1346,10 +1348,10 @@ do {
 									
 										$newThreadArray = array('posts' => array());
 											
-										echo $fgGreen . "SAVING: " . $colorEnd . $board . "/" . $threadPath_Parts['filename'] . ".html.json" . PHP_EOL;
-										file_put_contents($productionJSONFolder . $board . "/" . $threadPath_Parts['filename'] . ".html.json", json_encode($newThreadArray), LOCK_EX);    
+										//echo $fgGreen . "SAVING: " . $colorEnd . $board . "/" . $threadPath_Parts['filename'] . ".html.json" . PHP_EOL;
+										//file_put_contents($productionJSONFolder . $board . "/" . $threadPath_Parts['filename'] . ".html.json", json_encode($newThreadArray), LOCK_EX);    
 									
-										echo $fgGreen . "PARSING: " . $colorEnd . $board . "/" . $threadPath_Parts['filename'] . ".html.json" . PHP_EOL;
+										echo $fgGreen . "PARSING: " . $colorEnd . $board . "/thread.json" . PHP_EOL;
 									
 										foreach($json_array[children][1][children][15][children][1][children] as $key => $value) {    
 									
@@ -1682,16 +1684,16 @@ do {
 								do {
 									if ($currentDownloadAttempt > 1) {
 										if ($readFromLocal8KunFiles) {
-											echo "--------- " . $fgYellow . "DOWNLOAD:" . $colorEnd . str_replace($productionJSONFolder, "", $threadUrl) . ". Attempt $currentDownloadAttempt of $maxDownloadAttempts\n";
+											echo "--------- " . $fgYellow . "DOWNLOAD/READ:" . $colorEnd . str_replace($productionJSONFolder, "", $threadUrl) . ". Attempt $currentDownloadAttempt of $maxDownloadAttempts\n";
 										} else {
-											echo "--------- " . $fgYellow . "DOWNLOAD:" . $colorEnd . " $threadUrl?sqraper_nocache=" . $noCache . ". Attempt $currentDownloadAttempt of $maxDownloadAttempts\n";
+											echo "--------- " . $fgYellow . "DOWNLOAD/READ:" . $colorEnd . " $threadUrl?sqraper_nocache=" . $noCache . ". Attempt $currentDownloadAttempt of $maxDownloadAttempts\n";
 										}										
 									} else {
 										if ($readFromLocal8KunFiles) {
 											//echo "--------- " . $fgGreen . "DOWNLOAD:" . $colorEnd . " $threadUrl.\n";
-											echo "--------- " . $fgGreen . "DOWNLOAD:" . $colorEnd . str_replace($productionJSONFolder, "", $threadUrl). ".\n";
+											echo "--------- " . $fgGreen . "DOWNLOAD/READ:" . $colorEnd . str_replace($productionJSONFolder, "", $threadUrl). ".\n";
 										} else {
-											echo "--------- " . $fgGreen . "DOWNLOAD:" . $colorEnd . " $threadUrl?sqraper_nocache=" . $noCache . ".\n";
+											echo "--------- " . $fgGreen . "DOWNLOAD/READ:" . $colorEnd . " $threadUrl?sqraper_nocache=" . $noCache . ".\n";
 										}																			
 									}				
 									
