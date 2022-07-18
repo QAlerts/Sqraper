@@ -52,6 +52,7 @@ CONFIGURATION FILE: sqraper_config.json (needs to be in the same folder as sqrap
     "qresearch"
   ],
   "domain8Kun": "8kun.top",
+  "domain8KunMedia":"128ducks.com"
   "domain8KunForLinks": "8kun.top",
   "lokiKun": "http://pijdty5otm38tdex6kkh51dkbkegf31dqgryryz3s3tys8wdegxo.loki",
   "useLoki": true,  
@@ -113,6 +114,12 @@ bogusTrips:
     This is only used if "useLoki" is false, which causes sqraping over the normal Internet (which at this time is
     not possible due to the DDoS protection 8kun has in place). If sqraping over Internet, you enter the domain to
     scrape (without any leading https:// or trailing /).
+    
+  domain8KunMedia:
+    Type: String
+    Default: "128ducks.com"
+    When the post media files are stored. This used to be on the same servers as 8kun. In July they started hosting
+    media on 128ducks.com.
     
   domain8KunForLinks:
     Type: String
