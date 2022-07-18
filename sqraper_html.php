@@ -5,7 +5,7 @@ error_reporting(E_ERROR);
 /*
 
 Sqraper
-Version: 3.0.2
+Version: 3.0.3
 Last Updated: July 17, 2022
 Author: DevAnon from QAlerts.app
 Email: qalertsapp@gmail.com
@@ -38,7 +38,7 @@ config changes as the config file is re-read at the end of each loop.
 /* ============================= */
 
 $scriptTitle = "Sqraper_HTML";
-$scriptVersion = "3.0.2";
+$scriptVersion = "3.0.3";
 $scriptUpdated = "Last Updated: July 15, 2022";
 $scriptAuthor = "DevAnon from QAlerts.app";
 $scriptAuthorEmail = "qalertsapp@gmail.com";
@@ -517,19 +517,28 @@ function getMediaObject($inArray) {
 		array_push($returnArray, $thisMedia);		
 		
 		if (($GLOBALS['useLoki']) || ($GLOBALS['useTor'])) {			
-			if ($GLOBALS['useLoki']) {
-				//$thisDownload = "http://media." . str_replace("http://", "", $GLOBALS['lokiKun']) . "/file_store/" . $inArray['tim'] . $inArray['ext'];
-				$thisDownload = "https://media." . $GLOBALS['domain8KunMedia'] . "/file_store/" . $inArray['tim'] . $inArray['ext'];
+			if ($GLOBALS['useLoki']) {				
+				if (strlen($GLOBALS['domain8KunMedia']) > 0) {
+					$thisDownload = "https://media." . $GLOBALS['domain8KunMedia'] . "/file_store/" . $inArray['tim'] . $inArray['ext'];
+				} else {
+					$thisDownload = "http://media." . str_replace("http://", "", $GLOBALS['lokiKun']) . "/file_store/" . $inArray['tim'] . $inArray['ext'];
+				}					
 				downloadMediaFile($thisDownload, $thisStorageFilename);				
 			}
 			if ($GLOBALS['useTor']) {
-				//$thisDownload = "http://media." . str_replace("http://www.", "", $GLOBALS['torKun']) . "/file_store/" . $inArray['tim'] . $inArray['ext'];
-				$thisDownload = "https://media." . $GLOBALS['domain8KunMedia'] . "/file_store/" . $inArray['tim'] . $inArray['ext'];
+				if (strlen($GLOBALS['domain8KunMedia']) > 0) {
+					$thisDownload = "https://media." . $GLOBALS['domain8KunMedia'] . "/file_store/" . $inArray['tim'] . $inArray['ext'];	
+				} else {
+					$thisDownload = "http://media." . str_replace("http://www.", "", $GLOBALS['torKun']) . "/file_store/" . $inArray['tim'] . $inArray['ext'];
+				}								
 				downloadMediaFile($thisDownload, $thisStorageFilename);				
 			}			
 		} else {
-			//$thisDownload = "https://media." . $GLOBALS['domain8Kun'] . "/file_store/" . $inArray['tim'] . $inArray['ext'];
-			$thisDownload = "https://media." . $GLOBALS['domain8KunMedia'] . "/file_store/" . $inArray['tim'] . $inArray['ext'];
+			if (strlen($GLOBALS['domain8KunMedia']) > 0) {
+				$thisDownload = "https://media." . $GLOBALS['domain8KunMedia'] . "/file_store/" . $inArray['tim'] . $inArray['ext'];	
+			} else {
+				$thisDownload = "https://media." . $GLOBALS['domain8Kun'] . "/file_store/" . $inArray['tim'] . $inArray['ext'];
+			}			
 			downloadMediaFile($thisDownload, $thisStorageFilename);
 		}	
 		
